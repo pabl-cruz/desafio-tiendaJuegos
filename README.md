@@ -1,6 +1,6 @@
 # desafio-tiendaJuegos
 
-This template should help get you started developing with Vue 3 in Vite.
+Desafio evaluado sobre el uso de Pinia en Vue para M7 Bootcamp Programación Front-End Vue
 
 ## Recommended IDE Setup
 

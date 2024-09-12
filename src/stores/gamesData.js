@@ -18,6 +18,7 @@ export const gamesStore = defineStore('gamesData', {
     },
     //incrementar cantidad de stock de juego
     accionIncremento(codigo) {
+      //encontrar propiedad codigo en cada juego de juegos
       const juego = this.juegos.find((jgo) => jgo.codigo === codigo)
       if (juego) {
         juego.stock = Number(juego.stock) + 1
