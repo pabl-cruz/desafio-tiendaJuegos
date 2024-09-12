@@ -1,21 +1,34 @@
 <script>
+//importar propiedades de vue que se usarán
+import { computed, onMounted } from 'vue'
 //importar store desde archivo
 import { gamesStore } from '@/stores/gamesData'
-//importar propiedades de vue que se usarán
-import { computed } from 'vue'
 
 export default {
   name: 'TablajuegosComponent',
-  mounted() {
+  setup() {
     const store = gamesStore()
     //fetch los datos del arreglo
     const fetchJuegos = () => {
       store.getJuegos()
     }
+    //aumentar stock, asignando arreglo y propiedad
+    const incrementarStock = (juego) => {
+      store.accionIncremento(juego.codigo)
+    }
+    //disminuir stock
+    const disminuirStock = (juego) => {
+      store.accionDisminuir(juego.codigo)
+    }
     //mapear el estado
     const juegos = computed(() => store.juegos)
+
+    //ejecutar funcion cuando se monte componente
+    onMounted(() => {
+      fetchJuegos()
+    })
     //retornar valores para uso en template
-    return { juegos, fetchJuegos }
+    return { juegos, fetchJuegos, incrementarStock, disminuirStock }
   }
 }
 </script>
@@ -23,7 +36,7 @@ export default {
   <div>
     <h1>Tienda Juegos 32 Bits</h1>
     <h2><b>Lista de juegos</b></h2>
-    <table v-on:load="fetchJuegos">
+    <table>
       <tbody>
         <tr>
           <th><strong>Código</strong></th>
@@ -39,7 +52,10 @@ export default {
           <td>{{ juego.precio }}</td>
           <td>{{ juego.stock }}</td>
           <td>{{ juego.color }}</td>
-          <td><button>+ (Aumentar stock)</button><button>- (Disminuir stock)</button></td>
+          <td>
+            <button @click="incrementarStock(juego)">+ (Aumentar stock)</button
+            ><button @click="disminuirStock(juego)">- (Disminuir stock)</button>
+          </td>
         </tr>
       </tbody>
     </table>

@@ -15,6 +15,19 @@ export const gamesStore = defineStore('gamesData', {
       } catch (error) {
         console.error(error)
       }
+    },
+    //incrementar cantidad de stock de juego
+    accionIncremento(codigo) {
+      const juego = this.juegos.find((jgo) => jgo.codigo === codigo)
+      if (juego) {
+        juego.stock = Number(juego.stock) + 1
+      }
+    },
+    accionDisminuir(codigo) {
+      const juego = this.juegos.find((jgo) => jgo.codigo === codigo)
+      if (juego) {
+        juego.stock = Number(juego.stock) - 1
+      }
     }
   }
 })
